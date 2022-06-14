@@ -8,6 +8,8 @@ abstract contract ERC721Lendable is ERC721, IERC721Lendable {
     mapping(uint256 => address) private _admins;
 
 
+    // ADMIN
+
     function adminOf(uint256 tokenId) public view virtual override returns (address) {
         return _admins[tokenId];
     }
