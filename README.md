@@ -1,1 +1,1 @@
-# EIP-Rentable
+# ERC721Lendable
