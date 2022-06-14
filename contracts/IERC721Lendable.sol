@@ -10,6 +10,8 @@ interface IERC721Lendable is IERC721 {
 
     function adminOf(uint256 tokenId) external returns (address);
 
+    function setAdmin(address to, uint256 tokenId) external;
+
     function lendFrom(address from, address to, address admin, uint256 tokenId) external;
 
     function safeLendFrom(address from, address to, address admin, uint256 tokenId) external;

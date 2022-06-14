@@ -12,6 +12,11 @@ abstract contract ERC721Lendable is ERC721, IERC721Lendable {
         return _admins[tokenId];
     }
 
+    function setAdmin(address to, uint256 tokenId) public virtual override {
+        require(_isAdmin(_msgSender(), tokenId), "ERC721Lendable: set admin caller is not admin");
+        _setAdmin(to, tokenId);
+    }
+
     // LEND
 
     function lendFrom(
@@ -94,7 +99,7 @@ abstract contract ERC721Lendable is ERC721, IERC721Lendable {
         _safeTransfer(from, to, tokenId, _data);
     }
 
-    // MISC
+    // INTERNAL
 
     function _isAdmin(address spender, uint256 tokenId) internal view virtual returns (bool) {
         require(_exists(tokenId), "ERC721Lendable: operator query for nonexistent token");
