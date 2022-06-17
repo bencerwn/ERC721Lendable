@@ -51,50 +51,6 @@ abstract contract ERC721Lendable is ERC721, IERC721Lendable {
         );
     }
 
-    function _safeLend(
-        address from, 
-        address to, 
-        address admin,
-        uint256 tokenId,
-        bytes memory _data
-    ) internal virtual {
-        require(!_adminExists(tokenId), "ERC721Lendable: token already lent");
-        _setAdmin(admin, tokenId);
-        _safeTransfer(from, to, tokenId, _data);
-    }
-
-    function _lend(
-        address from, 
-        address to, 
-        address admin,
-        uint256 tokenId
-    ) internal virtual {
-        require(!_adminExists(tokenId), "ERC721Lendable: token already lent");
-        _setAdmin(admin, tokenId);
-        _transfer(from, to, tokenId);
-    }
-
-    function _safeRetrieve(
-        address from,
-        address to,
-        uint256 tokenId,
-        bytes memory _data
-    ) internal virtual {
-        require(_adminExists(tokenId), "ERC721Lendable: token not lent");
-        _setAdmin(address(0), tokenId);
-        _safeTransfer(from, to, tokenId, _data);
-    }
-
-    function _retrieve(
-        address from,
-        address to,
-        uint256 tokenId
-    ) internal virtual {
-        require(_adminExists(tokenId), "ERC721Lendable: token not lent");
-        _setAdmin(address(0), tokenId);
-        _transfer(from, to, tokenId);
-    }
-
     function _adminExists(uint256 tokenId) internal view virtual returns (bool) {
         return _admins[tokenId] != address(0);
     }
