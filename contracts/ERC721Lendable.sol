@@ -19,67 +19,6 @@ abstract contract ERC721Lendable is ERC721, IERC721Lendable {
         _setAdmin(to, tokenId);
     }
 
-    // LEND
-
-    function lendFrom(
-        address from, 
-        address to, 
-        address admin,
-        uint256 tokenId
-    ) public virtual override {
-        require(_isAdmin(_msgSender(), tokenId), "ERC721Lendable: lend caller is not admin");
-        _lend(from, to, admin, tokenId);
-    }
-
-    function safeLendFrom(
-        address from, 
-        address to, 
-        address admin,
-        uint256 tokenId
-    ) public virtual override {
-        safeLendFrom(from, to, admin, tokenId, "");
-    }
-
-    function safeLendFrom(
-        address from, 
-        address to,
-        address admin,
-        uint256 tokenId,
-        bytes memory _data
-    ) public virtual override {
-        require(_isAdmin(_msgSender(), tokenId), "ERC721Lendable: lend caller is not admin");
-        _safeLend(from, to, admin, tokenId, _data);
-    }
-
-    // RETRIEVE
-
-    function retrieveFrom(
-        address from, 
-        address to, 
-        uint256 tokenId
-    ) public virtual override {
-        require(_isAdmin(_msgSender(), tokenId), "ERC721Lendable: retrieve caller is not admin");
-        _retrieve(from, to, tokenId);
-    }
-
-    function safeRetrieveFrom(
-        address from, 
-        address to, 
-        uint256 tokenId
-    ) public virtual override {
-        safeRetrieveFrom(from, to, tokenId, "");
-    }
-
-    function safeRetrieveFrom(
-        address from, 
-        address to, 
-        uint256 tokenId,
-        bytes memory _data
-    ) public virtual override {
-        require(_isAdmin(_msgSender(), tokenId), "ERC721Lendable: retrieve caller is not admin");
-        _safeRetrieve(from, to, tokenId, _data);
-    }
-
     // TRANSFER
 
     function transferFrom(
