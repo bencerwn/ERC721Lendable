@@ -19,7 +19,14 @@ abstract contract ERC721Lendable is ERC721, IERC721Lendable {
         _setAdmin(to, tokenId);
     }
 
-    // TRANSFER
+    // OVERRIDE
+
+    function approve(address to, uint256 tokenId) public virtual override(ERC721, IERC721) {
+        address owner = ERC721.ownerOf(tokenId);
+        require(to != owner, "ERC721Lendable: approval to current owner");
+        require(_isAdmin(_msgSender(), tokenId), "ERC721Lendable: approve caller is not admin");
+        _approve(to, tokenId);
+    }
 
     function transferFrom(
         address from,
