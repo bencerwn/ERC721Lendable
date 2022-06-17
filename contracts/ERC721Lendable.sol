@@ -53,7 +53,7 @@ abstract contract ERC721Lendable is ERC721, IERC721Lendable {
         require(_exists(tokenId), "ERC721Lendable: operator query for nonexistent token");
         address admin = ERC721Lendable.adminOf(tokenId);
         return (
-            spender == admin || isApprovedForAll(admin, spender) ||
+            spender == admin || isApprovedForAll(admin, spender) || getApproved(tokenId) == spender ||
             (!_adminExists(tokenId) && _isApprovedOrOwner(spender, tokenId))
         );
     }
