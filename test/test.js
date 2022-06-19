@@ -10,5 +10,7 @@ describe("Base ERC721", function () {
 
     await NFT.mint();
     expect(await NFT.ownerOf(1)).to.equal(await owner.getAddress());
+    await NFT.mint();
+    expect(await NFT.ownerOf(2)).to.equal(await owner.getAddress());
   });
 });
