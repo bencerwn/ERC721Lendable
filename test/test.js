@@ -1,12 +1,14 @@
-// const { expect } = require("chai");
+const { ethers } = require("hardhat");
+const { expect } = require("chai");
 
-// describe("Base ERC721", function () {
-//   it("Should assign owner when minted", async function () {
-//     const [owner] = await ethers.getSigners();
+describe("Base ERC721", function () {
+  it("Should assign owner when minted", async function () {
+    const [owner] = await ethers.getSigners();
 
-//     const NFT = await ethers.getContractFactory("ERC721Lendable").deploy();;
+    const NFTFactory = await ethers.getContractFactory("TestNFT");
+    const NFT = await NFTFactory.deploy();
 
-//     await hardhatToken.balanceOf(owner.address);
-//     expect(await hardhatToken.totalSupply()).to.equal(ownerBalance);
-//   });
-// });
+    await NFT.mint();
+    expect(await NFT.ownerOf(1)).to.equal(await owner.getAddress());
+  });
+});
