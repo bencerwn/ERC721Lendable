@@ -16,7 +16,7 @@ describe("Base ERC721", function () {
 
   it("Should assign new owner on transfer", async function () {
     const [owner, tester1] = await ethers.getSigners();
-    const [ownerAddr, tester1Addr] =  [owner, tester1].map(x => {await x.getAddress()});
+    const [ownerAddr, tester1Addr] =  await Promise.all([owner, tester1].map(async x => await x.getAddress()));
 
     const NFTFactory = await ethers.getContractFactory("TestNFT");
     const NFT = await NFTFactory.deploy();
