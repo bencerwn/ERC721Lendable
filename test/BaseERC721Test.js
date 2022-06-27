@@ -43,5 +43,9 @@ describe("Base ERC721", function () {
         expect(await NFT.ownerOf(1)).to.equal(owner.address);
         await NFT.connect(tester1).transferFrom(owner.address, tester2.address, 1);
         expect(await NFT.ownerOf(1)).to.equal(tester2.address);
+
+        await expect(
+            NFT.transferFrom(tester2.address, owner.address, 1)
+        ).to.be.revertedWith("ERC721Lendable: transfer caller is not admin");
     });
 });
