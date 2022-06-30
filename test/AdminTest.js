@@ -19,6 +19,7 @@ describe("Admin Test", function () {
     it("Should set admin correctly", async function () {
         await NFT.mint();
         expect(await NFT.ownerOf(1)).to.equal(owner.address);
+        expect(await NFT.adminExists(1)).to.equal(false);
 
         await NFT.setAdmin(tester1.address, 1);
         expect(await NFT.ownerOf(1)).to.equal(owner.address);
