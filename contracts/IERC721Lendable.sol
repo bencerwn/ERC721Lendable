@@ -12,5 +12,7 @@ interface IERC721Lendable is IERC721 {
 
     function adminOf(uint256 tokenId) external returns (address);
 
+    function adminExists(uint256 tokenId) external returns (bool);
+
     function setAdmin(address to, uint256 tokenId) external;
 }
