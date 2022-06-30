@@ -32,5 +32,15 @@ describe("Admin Test", function () {
       await NFT.connect(tester1).transferFrom(owner.address, tester2.address, 1);
       expect(await NFT.ownerOf(1)).to.equal(tester2.address);
       expect(await NFT.adminOf(1)).to.equal(tester1.address);
-  });
+    });
+
+    it("Should not allow owner to transfer when admin is set", async function () {
+      await NFT.mint();
+      await NFT.setAdmin(tester1.address, 1);
+
+      expect(await NFT.ownerOf(1)).to.equal(owner.address);
+      await expect(
+        NFT.transferFrom(owner.address, tester2.address, 1)
+      ).to.be.revertedWith("ERC721Lendable: transfer caller is not admin");
+    });
 });
