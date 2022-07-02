@@ -6,11 +6,12 @@ describe("Base ERC721 Test", function () {
     let owner;
     let tester1;
     let tester2;
+    let tester3;
     let NFTFactory;
     let NFT;
     
     beforeEach(async function () {
-        [owner, tester1, tester2] = await ethers.getSigners();
+        [owner, tester1, tester2, tester3] = await ethers.getSigners();
         NFTFactory = await ethers.getContractFactory("TestNFT");
         NFT = await NFTFactory.deploy();
     });
