@@ -38,5 +38,5 @@ describe("Approve Admin Test", function () {
 
       await NFT.connect(tester1).setAdmin(tester2.address, 1);  
       expect(await NFT.adminOf(1)).to.equal(tester2.address);
-  });
+    });
 });
