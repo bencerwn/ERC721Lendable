@@ -26,6 +26,14 @@ describe("Set Admin Test", function () {
         expect(await NFT.adminOf(1)).to.equal(tester1.address);
     });
 
+    it("Should not allow others to set admin", async function () {
+      await NFT.mint();
+
+      await expect(
+        NFT.connect(tester2).setAdmin(tester1.address, 1)
+      ).to.be.revertedWith("ERC721Lendable: set admin caller is not admin");
+  });
+
     it("Should allow admin to transfer", async function () {
       await NFT.mint();
       await NFT.setAdmin(tester1.address, 1);
