@@ -2,7 +2,7 @@ const { ethers } = require("hardhat");
 const { expect } = require("chai");
 
 
-describe("Admin Test", function () {
+describe("Set Admin Test", function () {
     let owner;
     let tester1;
     let tester2;
