@@ -27,4 +27,16 @@ describe("Approve Admin Test", function () {
         await NFT.connect(tester1).setAdmin(tester2.address, 1);  
         expect(await NFT.adminOf(1)).to.equal(tester2.address);
     });
+
+    it("Should allow token approved to set admin", async function () {
+      await NFT.mint();
+
+      await expect(
+        NFT.connect(tester1).setAdmin(tester2.address, 1)
+      ).to.be.revertedWith("ERC721Lendable: set admin caller is not admin");
+      await NFT.approve(tester1.address, 1);
+
+      await NFT.connect(tester1).setAdmin(tester2.address, 1);  
+      expect(await NFT.adminOf(1)).to.equal(tester2.address);
+  });
 });
