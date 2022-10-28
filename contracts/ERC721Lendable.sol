@@ -24,6 +24,11 @@ abstract contract ERC721Lendable is ERC721, IERC721Lendable {
     require(_isController(_msgSender(), tokenId), "ERC721Lendable: set admin caller does not have control");
     _setAdmin(to, tokenId);
   }
+  
+  function removeAdmin(uint256 tokenId) public virtual override {
+    require(_isController(_msgSender(), tokenId), "ERC721Lendable: remove admin caller does not have control");
+    _removeAdmin(tokenId);
+  }
 
   // OVERRIDE
 
@@ -73,8 +78,14 @@ abstract contract ERC721Lendable is ERC721, IERC721Lendable {
   }
 
   function _setAdmin(address to, uint256 tokenId) internal virtual {
-    address from = adminOf(tokenId);
+    address from = ERC721Lendable.adminOf(tokenId);
     _admins[tokenId] = to;
     emit SetAdmin(from, to, tokenId);
+  }
+
+  function _removeAdmin(uint256 tokenId) internal virtual {
+    address admin = ERC721Lendable.adminOf(tokenId);
+    delete _admins[tokenId];
+    emit SetAdmin(admin, address(0), tokenId);
   }
 }
